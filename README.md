@@ -1,5 +1,5 @@
 # Lassa Fever Agent-Based Model
-**Model developed by Ali Hussain, as part of Undergraduate Research into environmental modeling Lassa Fever.**
+**Model developed by Ali Hussain, as part of Undergraduate Research into environmental modeling of Lassa Fever.**
 
 ### What is Lassa Fever?
 Lassa Fever (LF) is an acute zoonotic viral hemorrhagic illness. The causative agent is the Lassa virus, hosted by a species of rodent called Mastomys natalensis. It spreads to humans through contact with food or household items that have been contaminated with rodent feces or from an infected person to another. LF is endemic in most countries of West Africa, and may spread to other parts of the world, if not checked, according to the Center for Diseases Control and Prevention.
