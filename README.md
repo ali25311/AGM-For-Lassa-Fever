@@ -1,14 +1,16 @@
 # Lassa Fever Agent-Based Model
-Model developed by Ali Hussain
+**Model developed by Ali Hussain, as part of Undergraduate Research into environmental modeling Lassa Fever.**
+
 ### What is Lassa Fever?
 Lassa Fever (LF) is an acute zoonotic viral hemorrhagic illness. The causative agent is the Lassa virus, hosted by a species of rodent called Mastomys natalensis. It spreads to humans through contact with food or household items that have been contaminated with rodent feces or from an infected person to another. LF is endemic in most countries of West Africa, and may spread to other parts of the world, if not checked, according to the Center for Diseases Control and Prevention.
 
 ### What's the model for?
 
-This model uses agent-based simulations to evaluate how changing intervention parameters will affect the reproduction number or infection rate of an outbreak of Lassa Fever. Some scenarions include situations like increased rodent control, increase isolation, etc. 
-The main objective of the model is to investigate the
+This model uses agent-based simulations to evaluate how changing intervention parameters will affect the reproduction 
+number or infection rate of an outbreak of Lassa Fever. Some scenarios include situations like increased rodent control, increase isolation, etc. 
+**The main objective of the model is to investigate the
 effectiveness and sustainability of different strategies for curtailing
-the outbreak.
+the outbreak.**
 
 ### How does it work?
 The models were implemented
@@ -32,6 +34,14 @@ using by a rate of 𝛿1ℎ.
 
 ![model structure](https://i.imgur.com/OOvsATF.png)
 
+### How does it look?
+![model structure](https://i.imgur.com/QMrsQ5O.png)
++ The circles represent human agents, while the squares represent rodent agents.
++ *COLOR CODE For Rat Agents:* Yellow = Susceptible | Red = Infected | Gray = Deceased
++ *COLOR CODE For Humans Agents:* Yellow = Susceptible | Red = Infected | Green = Exposed | Blue = Removed (Recovered/Isolated)
++ Parameters can be changed within the model itself using several different variable sliders.
+
+
 ### How do I run it?
 + Firstly install mesa here (along with python): https://mesa.readthedocs.io/en/latest/
 + Once installed, simply invoke `python3 disease_run.py` in the directory of the folder and the model will launch in browser.
@@ -40,3 +50,4 @@ using by a rate of 𝛿1ℎ.
 + Dr Chalk for the introduction into AGM Simulation and MESA: https://www.youtube.com/watch?v=VeQkhfDYyMc&ab_channel=HSMA
 + Dr Akwafuo for advising the research done; https://www.sampsonakwafuo.com/home
 + The team behind the python framework aka Project MESA: https://mesa.readthedocs.io/en/latest/
++ William Blair for initial setting up of the model: https://www.linkedin.com/in/william-blair-2318451b3/
