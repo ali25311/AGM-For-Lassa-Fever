@@ -1,5 +1,3 @@
-# https://www.youtube.com/watch?v=VeQkhfDYyMc
-# start @28:04 ✔️
 from itertools import filterfalse
 from mesa import Agent, Model
 from mesa.time import RandomActivation # random order of agent actions
@@ -8,7 +6,6 @@ from mesa.datacollection import DataCollector
 
 import random
 
-# @31:37 ✔️
 # A class representing a 'human' agent. Note we're passing in the Agent class
 # we imported from the mesa library. Remember that this means our class here
 # is inheriting from the 'parent' Agent class, and our class is the 'child', 
@@ -49,23 +46,6 @@ class Human_Agent(Agent):
     self.human_susceptible = self.susceptible
     self.human_infected = self.infected
 
-    # We're going to set up our model so that some agents are already
-    # infected at the start. We've got a paramter value passed in
-    # (initial infection) that defines the probability of any given agent 
-    # being infected at the start. So, we just randomly sample from 
-    # uniform distribution between 0 and 1, and if the sampled value is
-    # less than this probability, then we say that the agent is infected -
-    # we set their Boolean infected attribute to True, and randomly
-    # sample a duration we passed in. Otherwise, we set their infected attribute to false
-    # if random.uniform(0, 1) < initial_infection:
-    #   self.infected = True
-    #   self.susceptible = False
-    #   self.disease_duration = int(round(random.expovariate(1.0 / self.mean_length_of_disease), 0))
-    # else:
-    #   self.infected = False
-    #   self.susceptible = True
-
-  # @41:36 ✔️
   # Agent movement function - this is called if it is determined the agent
   # is going to move on this time step
   def move(self):
@@ -81,37 +61,7 @@ class Human_Agent(Agent):
 
     # Move the agent tothe randomly selected new position
     self.model.grid.move_agent(self, new_position)
-
-  # @46:52 ✔️
-  # Agent infection function
-  # def infect(self):
-    # Get list of agents in this cell. We use the get_cell_list_contents
-    # function of the grid object and pass it our current position
-    # cellmates = self.model.grid.get_cell_list_contents([self.pos])
-
-    # Check if there are other agents here - if the list of cellmates is 
-    # greater than 1 then there must be more here than this agent
-    # if len(cellmates) > 1:
-      # for each agent in the cell
-      # for inhabitant in cellmates:
-        # infect the agent with a given probability (transmissibility)
-        # if they're not already infected. If they become infected,
-        # then we set their infected attribute to True, and their
-        # disease_duration attribute to a value randomly sampled based
-        # on the mean_length_of_distance attribute.
-
-        
-        # old code
-        # if inhabitant.infected == False:
-        #   if random.uniform(0, 1) < self.transmissibility:
-        #     inhabitant.infected = True
-        #     inhabitant.susceptible = False
-        #     inhabitant.disease_duration = int(round(random.expovariate(1.0 / self.mean_length_of_disease), 0))
-        #
   
-
-
-  # @1:03:53 ✔️
   # Step method - this defines which of the agent's actions will be taken
   # on a time step, and in which order
   def step(self):
@@ -235,7 +185,6 @@ class Rodent_Agent(Agent):
     # Move the agent to the randomly selected new position
     self.model.grid.move_agent(self, new_position)
 
-  # @46:52 ✔️
   # Agent infection function
   def infect(self):
     # Get list of agents in this cell. We use the get_cell_list_contents
@@ -264,12 +213,6 @@ class Rodent_Agent(Agent):
             inhabitant.exposed = False
             inhabitant.susceptible = False
             inhabitant.human_susceptible = False
-        # elif inhabitant.exposed == True:
-        #   if random.uniform(0, 1) < self.transmissibility:
-        #     inhabitant.exposed = False
-        #     inhabitant.infected = True
-        #     inhabitant.susceptible = False
-        #     inhabitant.disease_duration = int(round(random.expovariate(1.0 / self.mean_length_of_disease), 0))
 
   def pesticideFactor(self):
     if random.randint(0,100) < self.pesticide_level:
@@ -277,7 +220,6 @@ class Rodent_Agent(Agent):
       self.infected = False
       self.susceptible = False
     
-  # @1:03:53 ✔️
   # Step method - this defines which of the agent's actions will be taken
   # on a time step, and in which order
   def step(self):
@@ -307,14 +249,14 @@ class Rodent_Agent(Agent):
         self.infected = False
         self.susceptible = True
 
-# @1:10:30 ✔️
+
 class Disease_Model(Model):
   # 2D Model initialisation function - initialise with N agents, and
   # specified width and height. Also pass in the things we need to pass
   # to our agents when instantiating them.
   # The comment below which uses triple " will get picked up by the server
   # if we run a live display of the model.
-  """A model of disease spread. Circles = Humans, Squares = Rodents"""
+  """A model of how Lassa Fever spreads and how different interventions effect the overall virus spread and reproduction rate. KEY: Circles = Humans, Squares = Rodents"""
   def __init__(self, N, width, height, initial_infection, transmissibility, level_of_movement, mean_length_of_disease, rodent_population, treatment_chance, treatment_length, isolation, environmental, pesticide):
     self.running = True # required for BatchRunner
     self.num_humans = N # assign number of humans at initialisation
@@ -364,22 +306,20 @@ class Disease_Model(Model):
         y = random.randrange(self.grid.height)
         self.grid.place_agent(a, (x,y))
         
-    # @1:54:13 ✔️
     # Create a new datacollector, and pass in a model reporter as a
     # dictionary entry, with the index value as the name of the result
     # (which we'll refer to by this name elsewhere) and the lookup value
     # as the name of the function we created below that will calculate
     # the result we're reporting
     self.datacollector = DataCollector(
-      model_reporters={"Total_Infected":calculate_number_infected,
-                       "Total_Susceptible":calculate_number_susceptible,
-                       "Total_Deceased(Rodents)":calculate_number_deceased,
-                       "Total_Exposed":calculate_number_exposed,
-                       "Total_Removed":calculate_number_removed},
+      model_reporters={"Infected Humans":calculate_number_infected,
+                       "Susceptible Humans":calculate_number_susceptible,
+                       "Deceased Rodents":calculate_number_deceased,
+                       "Exposed Humans":calculate_number_exposed,
+                       "Removed/Recovered/Isolated Humans":calculate_number_removed},
       agent_reporters={}
       )
 
-  # @1:21:49 ✔️
   # Function to advance the mode by one step
   def step(self):
     self.schedule.step()
@@ -387,7 +327,6 @@ class Disease_Model(Model):
     # and agent reporters
     self.datacollector.collect(self)
 
-# @1:51:46 ✔️
 # Function to calculate total number infected in the model
 # The function takes as an input model object for which we want to calculate
 # these results
